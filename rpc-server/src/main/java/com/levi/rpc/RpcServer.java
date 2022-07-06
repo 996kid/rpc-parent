@@ -16,7 +16,7 @@ import io.netty.handler.logging.LoggingHandler;
  *  1. 公用的api
  *  2. 服务端根据netty接收的数据反射调用api实现类方法，再使用netty返回结果
  *  3. 客户端动态代理api方法， 使用netty client 发送数据
- *  4. 数据序列化和反序列化
+ *  4. 数据序列化和反序列化   jdk json protobuf
  *  5. 数据黏包和半包处理
  *  6. 编码解码器
  * @author 996kid@gmail.com

@@ -34,7 +34,7 @@ public class RpcInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("hello, " + args[0]);
+//        System.out.println("hello, " + args[0]);
 //        System.out.println(method.getDeclaringClass().getName());
 //        System.out.println(method.getName());
 //        System.out.println(method.getParameterTypes());
@@ -54,6 +54,7 @@ public class RpcInvocationHandler implements InvocationHandler {
                                     @Override
                                     protected void channelRead0(ChannelHandlerContext ctx, RpcResponseMessage msg) throws Exception {
                                         // 读取返回结果
+                                        log.info("channelRead0: {}", msg);
                                         Promise result = requestPromise.remove(msg.getRequestId());
                                         if (msg.getException() != null) {
                                             result.setFailure(msg.getException());
@@ -67,6 +68,7 @@ public class RpcInvocationHandler implements InvocationHandler {
         Channel channel = channelFuture.channel();
         Promise<RpcResponseMessage> promise = new DefaultPromise(channel.eventLoop());
         String requestId = UUID.randomUUID().toString();
+        requestPromise.put(requestId, promise);
         channel.writeAndFlush(RpcRequestMessage.builder()
                 .interfaceName(method.getDeclaringClass().getName())
                 .methodName(method.getName())
@@ -75,7 +77,6 @@ public class RpcInvocationHandler implements InvocationHandler {
                 .requestId(requestId)
                 .build()
         );
-        requestPromise.put(requestId, promise);
         promise.await();
         if (promise.isSuccess()) {
             RpcResponseMessage responseMessage = promise.getNow();

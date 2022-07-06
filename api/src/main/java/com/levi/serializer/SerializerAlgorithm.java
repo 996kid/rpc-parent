@@ -42,7 +42,9 @@ public enum SerializerAlgorithm implements Serializer {
         public <T> byte[] serialize(T object) {
             return new Gson().toJson(object).getBytes(StandardCharsets.UTF_8);
         }
-    };
+    }
+
+    ;
 
     // 需要从协议的字节中得到是哪种序列化算法
     public static SerializerAlgorithm getByInt(int type) {
