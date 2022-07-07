@@ -1,6 +1,7 @@
 package com.levi.rpc.proxy;
 
 import com.levi.api.GreetingService;
+import com.levi.rpc.annotation.EnableRpc;
 import com.levi.rpc.annotation.RpcService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -24,7 +25,7 @@ public class RpcBeanPostprocessor implements BeanPostProcessor {
         Annotation[] classAnnotations = bean.getClass().getAnnotations();
         boolean enableRpc = false;
         for (Annotation annotation : classAnnotations) {
-            if (annotation.equals("EnableRpc")) {
+            if (annotation.annotationType().equals(EnableRpc.class)) {
                 enableRpc = true;
                 break;
             }
@@ -32,7 +33,7 @@ public class RpcBeanPostprocessor implements BeanPostProcessor {
         if (enableRpc) {
             // 1.查找有RpcService注解的Field
             // 2.生成代理对象
-            Field[] fields = bean.getClass().getFields();
+            Field[] fields = bean.getClass().getDeclaredFields();
             for (Field field : fields) {
                 // 存在RpcService注解
                 if (field.getAnnotationsByType(RpcService.class).length > 0) {
@@ -48,7 +49,7 @@ public class RpcBeanPostprocessor implements BeanPostProcessor {
                 }
             }
         }
-        return null;
+        return bean;
     }
 
     @Override
