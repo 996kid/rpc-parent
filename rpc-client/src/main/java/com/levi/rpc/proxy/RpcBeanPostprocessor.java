@@ -1,6 +1,5 @@
 package com.levi.rpc.proxy;
 
-import com.levi.api.GreetingService;
 import com.levi.rpc.annotation.EnableRpc;
 import com.levi.rpc.annotation.RpcService;
 import lombok.extern.slf4j.Slf4j;

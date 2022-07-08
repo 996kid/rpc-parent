@@ -1,4 +1,4 @@
-package com.levi.rpcmessage;
+package com.levi.rpc.common.rpcmessage;
 
 import lombok.Builder;
 import lombok.Data;

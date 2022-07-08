@@ -1,4 +1,4 @@
-package com.levi.serializer;
+package com.levi.rpc.common.serializer;
 
 public interface Serializer {
 

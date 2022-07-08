@@ -2,8 +2,9 @@ package com.levi.rpc.proxy;
 
 import com.levi.api.GreetingService;
 import com.levi.rpc.codec.MessageCodecSharable;
-import com.levi.rpcmessage.RpcRequestMessage;
-import com.levi.rpcmessage.RpcResponseMessage;
+import com.levi.rpc.common.exception.RpcTimeoutException;
+import com.levi.rpc.common.rpcmessage.RpcRequestMessage;
+import com.levi.rpc.common.rpcmessage.RpcResponseMessage;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -77,10 +78,18 @@ public class RpcInvocationHandler implements InvocationHandler {
                 .requestId(requestId)
                 .build()
         );
-        promise.await();
+        long before = System.currentTimeMillis();
+        // promise: 代表一个异步任务
+        promise.await(5000);
+        long after = System.currentTimeMillis();
+        if (after - before > 5000) {
+            log.error("response timeout");
+            throw new RpcTimeoutException("response timeout");
+        }
         if (promise.isSuccess()) {
             RpcResponseMessage responseMessage = promise.getNow();
             log.info("result: {}", responseMessage.getResult());
+            return responseMessage.getResult();
         } else {
             log.error("invoke failed: {}", promise.cause());
         }

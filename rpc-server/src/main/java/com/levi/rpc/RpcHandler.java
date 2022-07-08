@@ -1,8 +1,8 @@
 package com.levi.rpc;
 
 import com.levi.rpc.factory.ServiceFactory;
-import com.levi.rpcmessage.RpcRequestMessage;
-import com.levi.rpcmessage.RpcResponseMessage;
+import com.levi.rpc.common.rpcmessage.RpcRequestMessage;
+import com.levi.rpc.common.rpcmessage.RpcResponseMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;

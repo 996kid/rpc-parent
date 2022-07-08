@@ -1,8 +1,8 @@
 package com.levi.rpc.codec;
 
-import com.levi.rpcmessage.RpcRequestMessage;
-import com.levi.rpcmessage.RpcResponseMessage;
-import com.levi.serializer.SerializerAlgorithm;
+import com.levi.rpc.common.rpcmessage.RpcRequestMessage;
+import com.levi.rpc.common.rpcmessage.RpcResponseMessage;
+import com.levi.rpc.common.serializer.SerializerAlgorithm;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

@@ -1,8 +1,8 @@
 package com.levi.rpc;
 
 import com.levi.rpc.codec.MessageCodecSharable;
-import com.levi.rpcmessage.RpcRequestMessage;
-import com.levi.rpcmessage.RpcResponseMessage;
+import com.levi.rpc.common.rpcmessage.RpcRequestMessage;
+import com.levi.rpc.common.rpcmessage.RpcResponseMessage;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,12 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
-/**
+/** 弃用， 整合spring boot， 现在依赖spring boot 启动
  * @author 996kid@gmail.com
  * @Description RpcClient
  * @Date 2022/5/31 18:21
  */
 @Slf4j
+@Deprecated
 public class RpcClient {
 
     public static void main(String[] args) {

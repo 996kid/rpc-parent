@@ -17,8 +17,11 @@ public class BusinessService {
     @RpcService
     private GreetingService greetingService;
 
-    public void processBusiness() {
+    /**
+     * RPC调用完成业务
+     */
+    public String processBusiness() {
         // RPC 调用
-        greetingService.greeting("l3vi");
+        return greetingService.greeting("l3vi");
     }
 }
