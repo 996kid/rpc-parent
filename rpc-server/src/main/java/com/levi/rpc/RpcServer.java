@@ -10,6 +10,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
 
 /**
  *  rpc框架实现方式： tcp http
@@ -23,9 +26,39 @@ import io.netty.handler.logging.LoggingHandler;
  * @Description RpcServer
  * @Date 2022/5/30 16:10
  */
-public class RpcServer {
+@Component
+public class RpcServer implements ApplicationRunner {
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//        NioEventLoopGroup boss = new NioEventLoopGroup(1);
+//        NioEventLoopGroup worker = new NioEventLoopGroup();
+//        try {
+//            ChannelFuture channelFuture = new ServerBootstrap()
+//                    .group(boss, worker)
+//                    .channel(NioServerSocketChannel.class)
+//                    .childHandler(new ChannelInitializer<SocketChannel>() {
+//                        protected void initChannel(SocketChannel channel) throws Exception {
+//                            // 1. 固定长度 2. 固定分割符 3. data长度 + data
+//                            channel.pipeline()
+//                                    .addLast(// 最大长度，长度偏移，长度占用字节，长度调整，剥离字节数
+//                                            new LengthFieldBasedFrameDecoder(1024, 8,
+//                                                    4, 0, 0))
+//                                    .addLast(new LoggingHandler(LogLevel.DEBUG))
+//                                    .addLast(new MessageCodecSharable())
+//                                    .addLast(new RpcHandler());
+//                        }
+//                    }).bind("127.0.0.1", 8080).sync();
+//            channelFuture.channel().closeFuture().sync();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } finally {
+//            boss.shutdownGracefully();
+//            worker.shutdownGracefully();
+//        }
+//    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
         NioEventLoopGroup worker = new NioEventLoopGroup();
         try {
@@ -43,7 +76,7 @@ public class RpcServer {
                                     .addLast(new MessageCodecSharable())
                                     .addLast(new RpcHandler());
                         }
-                    }).bind("127.0.0.1", 8080).sync();
+                    }).bind("127.0.0.1", 8888).sync();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

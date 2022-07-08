@@ -1,8 +1,8 @@
 package com.levi.rpc.service;
 
 import com.levi.api.GreetingService;
-import com.levi.rpc.annotation.EnableRpc;
-import com.levi.rpc.annotation.RpcService;
+import com.levi.rpc.common.annotation.EnableRpc;
+import com.levi.rpc.common.annotation.RpcInject;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @EnableRpc
 public class BusinessService {
 
-    @RpcService
+    @RpcInject
     private GreetingService greetingService;
 
     /**

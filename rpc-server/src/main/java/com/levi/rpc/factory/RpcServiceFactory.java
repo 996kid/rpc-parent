@@ -1,7 +1,5 @@
 package com.levi.rpc.factory;
 
-import com.levi.rpc.service.GreetingServiceImpl;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,13 +8,12 @@ import java.util.Map;
  * @Description ServiceFactory
  * @Date 2022/5/31 22:23
  */
-public class ServiceFactory {
+public class RpcServiceFactory {
 
     private final static Map<String, Object> instanceHolder = new HashMap<>();
 
-    static {
-        // 加载接口和其实现类到容器中
-        instanceHolder.put("com.levi.api.GreetingService", new GreetingServiceImpl());
+    public static void addInstance(String interfaceName, Object instance) {
+        instanceHolder.put(interfaceName, instance);
     }
 
     public static Object getInstance(String interfaceName) {

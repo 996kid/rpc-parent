@@ -1,7 +1,7 @@
 package com.levi.rpc.proxy;
 
-import com.levi.rpc.annotation.EnableRpc;
-import com.levi.rpc.annotation.RpcService;
+import com.levi.rpc.common.annotation.EnableRpc;
+import com.levi.rpc.common.annotation.RpcInject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -18,7 +18,7 @@ import java.lang.reflect.Proxy;
  */
 @Component
 @Slf4j
-public class RpcBeanPostprocessor implements BeanPostProcessor {
+public class RpcBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         Annotation[] classAnnotations = bean.getClass().getAnnotations();
@@ -35,7 +35,7 @@ public class RpcBeanPostprocessor implements BeanPostProcessor {
             Field[] fields = bean.getClass().getDeclaredFields();
             for (Field field : fields) {
                 // 存在RpcService注解
-                if (field.getAnnotationsByType(RpcService.class).length > 0) {
+                if (field.getAnnotationsByType(RpcInject.class).length > 0) {
                     field.setAccessible(true);
                     try {
                         field.set(bean, Proxy.newProxyInstance(

@@ -65,7 +65,7 @@ public class RpcInvocationHandler implements InvocationHandler {
                                     }
                                 });
                     }
-                }).connect("127.0.0.1", 8080).sync();
+                }).connect("127.0.0.1", 8888).sync();
         Channel channel = channelFuture.channel();
         Promise<RpcResponseMessage> promise = new DefaultPromise(channel.eventLoop());
         String requestId = UUID.randomUUID().toString();
