@@ -1,6 +1,5 @@
 package com.levi.grpc.etcd.demo;
 
-import com.sun.tools.javac.tree.EndPosTable;
 import io.etcd.jetcd.*;
 import io.etcd.jetcd.kv.GetResponse;
 import io.etcd.jetcd.lease.LeaseGrantResponse;

@@ -35,6 +35,7 @@ public enum SerializerAlgorithm implements Serializer {
     Json {
         @Override
         public <T> T deserialize(Class<T> clazz, byte[] bytes) {
+            m1("1111");
             return new Gson().fromJson(new String(bytes, StandardCharsets.UTF_8), clazz);
         }
 
@@ -54,4 +55,16 @@ public enum SerializerAlgorithm implements Serializer {
         }
         return array[type];
     }
+
+    /**
+     * 枚举类实现的模板方法模式
+     * @param p
+     */
+    public void m1(String p) {
+        System.out.println("step 1");
+        serialize(new Object());
+        System.out.println("step 2");
+        deserialize(Object.class, new byte[1]);
+    }
+
 }
